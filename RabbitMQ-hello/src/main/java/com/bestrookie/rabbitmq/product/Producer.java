@@ -29,7 +29,7 @@ public class Producer {
          * 5、其他参数
          */
         channel.queueDeclare(QUENUE_NAME,false,false,false,null);
-        String msg = "hello world1";
+        String msg = "hello world2";
         /**
          *
          * 发送一条消息

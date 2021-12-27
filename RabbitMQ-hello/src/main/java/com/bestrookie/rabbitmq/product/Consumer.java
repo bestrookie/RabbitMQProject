@@ -12,7 +12,7 @@ public class Consumer {
 
     public static void main(String[] args) throws Exception{
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("7.102.118.110");
+        factory.setHost("47.102.118.110");
         factory.setUsername("rookie");
         factory.setPassword("123456");
         Connection connection = factory.newConnection();
