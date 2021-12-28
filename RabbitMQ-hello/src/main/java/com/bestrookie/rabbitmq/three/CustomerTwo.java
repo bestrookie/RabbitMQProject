@@ -33,6 +33,8 @@ public class CustomerTwo {
             System.out.println("消费信息被取消");
         };
         //采用手动应答 若果不设置的话默认为 false
+        //接收方式设置 0轮询 1不公平分发 其他欲取值
+        channel.basicQos(5);
         channel.basicConsume(TASK_QUEUE_NAME, false,deliverCallback,cancelCallback);
     }
 }

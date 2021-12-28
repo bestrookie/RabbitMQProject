@@ -20,7 +20,7 @@ public class CustomerOne {
         System.out.println("C1等待时间短");
         DeliverCallback deliverCallback = (consumerTag,msg)->{
             try {
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -33,6 +33,8 @@ public class CustomerOne {
             System.out.println("消费信息被取消");
         };
         //采用手动应答
+        //接收方式设置 0轮询 1不公平分发 其他欲取值
+        channel.basicQos(2);
         channel.basicConsume(TASK_QUEUE_NAME, false,deliverCallback,cancelCallback);
     }
 }

@@ -2,6 +2,7 @@ package com.bestrookie.rabbitmq.three;
 
 import com.bestrookie.rabbitmq.utils.RabbitUtils;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.MessageProperties;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,11 +20,11 @@ public class Product {
     public static void main(String[] args) throws Exception {
         Channel channel = RabbitUtils.getChannel();
 
-        channel.queueDeclare(TASK_QUEUE_NAME,false,false,false,null);
+        channel.queueDeclare(TASK_QUEUE_NAME,true,false,false,null);
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()){
             String msg = scanner.next();
-            channel.basicPublish("",TASK_QUEUE_NAME,null,msg.getBytes(StandardCharsets.UTF_8));
+            channel.basicPublish("",TASK_QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN,msg.getBytes(StandardCharsets.UTF_8));
             System.out.println("消息发送成功："+msg);
         }
 
