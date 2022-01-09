@@ -1,10 +1,9 @@
-package com.bestrookie.rabbitmq.three.four;
+package com.bestrookie.rabbitmq.four;
 
 import com.bestrookie.rabbitmq.utils.RabbitUtils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConfirmCallback;
 
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
