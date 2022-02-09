@@ -22,6 +22,7 @@ public class TTLQueueConfig {
     //普通队列
     public static final String NORMAL_QUEUE_A = "normal_queueA";
     public static final String NORMAL_QUEUE_B = "normal_queueB";
+    public static final String NORMAL_QUEUE_C = "normal_queueC";
     //死信队列
     public static final String DEAD_QUEUE = "dead_queue";
     @Bean("normalExchange")
@@ -54,6 +55,15 @@ public class TTLQueueConfig {
         arguments.put("x-message-ttl",40000);
         return QueueBuilder.durable(NORMAL_QUEUE_B).withArguments(arguments).build();
     }
+    @Bean("normalQueueC")
+    public Queue normalQueueC(){
+        Map<String, Object> arguments = new HashMap<>();
+        //绑定死信交换机
+        arguments.put("x-dead-letter-exchange",DEAD_EXCHANGE);
+        //设置死信
+        arguments.put("x-dead-letter-routing-key","YD");
+        return QueueBuilder.durable(NORMAL_QUEUE_C).withArguments(arguments).build();
+    }
     @Bean("deadQueue")
     public Queue deadQueue(){
         return QueueBuilder.durable(DEAD_QUEUE).build();
@@ -67,6 +77,10 @@ public class TTLQueueConfig {
     @Bean
     public Binding  queueBBanding(@Qualifier("normalQueueB")Queue queue, @Qualifier("normalExchange") DirectExchange exchange){
         return BindingBuilder.bind(queue).to(exchange).with("XB");
+    }
+    @Bean
+    public Binding queueCBanding(@Qualifier("normalQueueC") Queue queue,@Qualifier("normalExchange")DirectExchange exchange){
+        return  BindingBuilder.bind(queue).to(exchange).with("XC");
     }
     @Bean
     public Binding  queueDeadBanding(@Qualifier("deadQueue")Queue queue, @Qualifier("deadExchange") DirectExchange exchange){
