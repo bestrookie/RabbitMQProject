@@ -5,3 +5,5 @@ spring:
     username: rookie
     password: 123456
     connection-timeout: 60000
+    publisher-confirm-type: correlated
+    publisher-returns: true
